@@ -8,11 +8,11 @@
 <body>
     <h1>Crea tu personaje</h1>
     <form action="save_character.php" method="POST">
-        <label for="name">Nombre:</label>
-        <input name="name" type="text" id="name" placeholder="Nombre del personaje">
-        <label for="description">Descripción:</label>
-        <input name="descripcion" type="text" id="description" placeholder="Descripción del personaje">
-        <input type="submit">
+        <label for="nameInput">Nombre:</label>
+        <input name="name" type="text" id="nameInput" placeholder="Nombre del personaje">
+        <label for="descriptionInput">Descripción:</label>
+        <input name="description" type="text" id="descriptionInput" placeholder="Descripción del personaje">
+        <button type="submit">Crear personaje</button>
     </form>
 </body>
 </html>
