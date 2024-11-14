@@ -8,8 +8,8 @@ require_once("./model/Character.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $character = new Character();
     $character->setName($_POST['name']);
-    $character->setDescription($POST['description']);
-    require_once 'config/db.php';
+    $character->setDescription($_POST['description']);
+    //require_once 'config/db.php';
 
     $stmt = $db->prepare("INSERT INTO characters (name,description) VALUES (:name,:description)");
     $stmt->bindValue(':name', $character->getName());
@@ -21,10 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "ERROR: Personaje no creado";
     }
 }
-
-
-
-
 
 ?>
 <!DOCTYPE html>

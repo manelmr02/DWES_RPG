@@ -17,7 +17,7 @@ try {
         PDO::ATTR_ERRMODE,
         PDO::ERRMODE_EXCEPTION
     );
-    echo "Conexion realizada";
+    //echo "Conexion realizada";
 } catch (PDOException $exception) {
     echo "Error de conexión: " . $e->getMessage();
     exit;
