@@ -12,10 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $character->setHealth($_POST['health']);
     $character->setStrength($_POST['strength']);
     $character->setDefense($_POST['defense']);
-    
-    if($character->save()){
+
+    if ($character->save()) {
         echo "Se ha guardado el personaje.";
-    }else{
+    } else {
         echo "ERROR: No se ha guardado el personaje.";
     }
 }
@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
+    <?php include('./partials/_menu.php') ?>
     <h1>Crea tu personaje</h1>
     <form action="create_character.php" method="POST">
         <div id="nameDiv">
