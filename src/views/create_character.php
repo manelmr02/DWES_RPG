@@ -1,9 +1,16 @@
 <?php
 require_once("../config/db.php");
 require_once("../model/Character.php");
-//echo "<pre>";
-//var_dump($_SERVER);
-//echo"</pre>";
+
+//array asociativo en el que vamos a introducir todo lo que nos venga de la base de datos
+$characters=[];
+
+try{
+$stmt = $db->query("SELECT * FROM Characters");
+$characters = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}catch(PDOException $e){
+    echo "ERROR: Ha ocurrido un error leyendo la base de datos ".$e->getMessage();
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $character = new Character($db);
@@ -33,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php include('./partials/_menu.php') ?>
     <h1>Crea tu personaje</h1>
-    <form action="create_character.php" method="POST">
+    <form action=<?=$_SERVER['PHP_SELF']?> method="POST">
         <div id="nameDiv">
             <label for="nameInput">Nombre:</label>
             <input name="name" type="text" id="nameInput" placeholder="Nombre del personaje" required>
