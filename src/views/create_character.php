@@ -6,25 +6,17 @@ require_once("../model/Character.php");
 //echo"</pre>";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $character = new Character();
+    $character = new Character($db);
     $character->setName($_POST['name']);
     $character->setDescription($_POST['description']);
     $character->setHealth($_POST['health']);
     $character->setStrength($_POST['strength']);
     $character->setDefense($_POST['defense']);
-    //require_once 'config/db.php';
-
-    $stmt = $db->prepare("INSERT INTO characters (name,description,health,strength,defense) VALUES (:name,:description,:health,:strength,:defense)");
-    $stmt->bindValue(':name', $character->getName());
-    $stmt->bindValue(':description', $character->getDescription());
-    $stmt->bindValue(':health', $character->getHealth());
-    $stmt->bindValue(':strength', $character->getStrength());
-    $stmt->bindValue(':defense', $character->getDefense());
-
-    if ($stmt->execute()) {
-        echo "Personaje creado correctamente";
-    } else {
-        echo "ERROR: Personaje no creado";
+    
+    if($character->save()){
+        echo "Se ha guardado el personaje.";
+    }else{
+        echo "ERROR: No se ha guardado el personaje.";
     }
 }
 
