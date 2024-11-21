@@ -176,6 +176,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <td><?= $character['strength'] ?></td>
                     <td><?= $character['defense'] ?></td>
                     <td>
+                        <form action="edit_character.php" method="GET">
+                        <input type="hidden" name="id" value="<?= $character['id'] ?>">
+                        <button type="submit">Editar</button>
+                        </form>
                         <form action="delete_character.php" method="POST">
                             <input type="hidden" name="id" value="<?= $character['id'] ?>">
                             <button type="submit">Borrar</button>
