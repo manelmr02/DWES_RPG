@@ -73,12 +73,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div id="typeDiv">
             <label for="typeInput">Tipo:</label>
-            <select name="type" id="typeInput" value="<?= $item['type'] ?>" required> <!--Ponemos un selector para asegurarnos de que funcione como un enum (tipo establecido en la base de datos), es decir que no puedas elegir un valor incompatible-->
-                <option value="weapon">Arma</option>
-                <option value="armor">Armadura</option>
-                <option value="potion">Poción</option>
-                <option value="misc">Misceláneo</option>
+            <select name="type" id="typeInput" required>
+                <option value="weapon" <?= $item['type'] == 'weapon' ? 'selected' : '' ?>>Arma</option>
+                <option value="armor" <?= $item['type'] == 'armor' ? 'selected' : '' ?>>Armadura</option>
+                <option value="potion" <?= $item['type'] == 'potion' ? 'selected' : '' ?>>Poción</option>
+                <option value="misc" <?= $item['type'] == 'misc' ? 'selected' : '' ?>>Misceláneo</option>
             </select>
+
         </div>
 
         <div id="effectDiv">
