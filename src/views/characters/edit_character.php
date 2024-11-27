@@ -17,11 +17,11 @@ try {
     $stmt->execute();
     $character = $stmt->fetch(PDO::FETCH_ASSOC);//tenemos que usar el fetch unicamente porque el fetchAll nos devuelve un array y nos generaria un error
     if (!$character) {
-        die("Enemigo no encontrado.");
+        die("Personaje no encontrado.");
     }
 
 } catch (PDOException $e) {
-    die("Error al obtener el enemigo: " . $e->getMessage());
+    die("Error al obtener el personaje: " . $e->getMessage());
 }
 
 // Si se envia por POST tenemos que procesar los datos que nos pasa el formulario
