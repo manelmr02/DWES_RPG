@@ -50,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Error al actualizar: " . $e->getMessage();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
