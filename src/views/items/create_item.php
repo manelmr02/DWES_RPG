@@ -10,7 +10,7 @@ $typeTranslations = [
     "armor" => "Armadura",
     "potion" => "Poción",
     "misc" => "Misceláneo",
-];//esto esta creado para en el listado traducir al español los enumerados
+]; //esto esta creado para en el listado traducir al español los enumerados
 
 try {
     $stmt = $db->query("SELECT * FROM items");
@@ -74,40 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <button type="submit">Crear item</button>
     </form>
+    <?php require('list_items.php'); ?>
 
-    <h1>Lista de items</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Tipo</th>
-                <th>Efecto</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($items as $item): ?>
-                <tr>
-                    <td>Img</td>
-                    <td><?= $item['name'] ?></td>
-                    <td><?= $item['description'] ?></td>
-                    <td><?= $typeTranslations[$item['type']] ?></td>
-                    <td><?= $item['effect'] ?></td>
-                    <td>
-                        <form action="edit_item.php" method="GET">
-                        <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                        <button type="submit">Editar</button>
-                        </form>
-                        <form action="delete_item.php" method="POST">
-                            <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                            <button type="submit">Borrar</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+
 </body>
 
 </html>

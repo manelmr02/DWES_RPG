@@ -68,43 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <button type="submit">Crear personaje</button>
     </form>
-
-    <h1>Lista de personajes</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>PV</th>
-                <th>Fuerza</th>
-                <th>Defensa</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($characters as $character): ?>
-                <tr>
-                    <td>Img</td>
-                    <td><?= $character['name'] ?></td>
-                    <td><?= $character['description'] ?></td>
-                    <td><?= $character['health'] ?></td>
-                    <td><?= $character['strength'] ?></td>
-                    <td><?= $character['defense'] ?></td>
-                    <td>
-                        <form action="edit_character.php" method="GET">
-                        <input type="hidden" name="id" value="<?= $character['id'] ?>">
-                        <button type="submit">Editar</button>
-                        </form>
-                        <form action="delete_character.php" method="POST">
-                            <input type="hidden" name="id" value="<?= $character['id'] ?>">
-                            <button type="submit">Borrar</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <?php require('list_characters.php'); ?>
+    
 </body>
 
 </html>

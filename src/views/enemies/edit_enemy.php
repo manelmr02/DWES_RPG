@@ -26,28 +26,19 @@ try {
 
 // Si se envia por POST tenemos que procesar los datos que nos pasa el formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Recoger los valores del formulario
-    $name = $_POST['name'];
-    $description = $_POST['description'];
-    $isBoss = isset($_POST['isBoss']) ? 1 : 0; // Verificamos si se marcó el checkbox
-    $health = $_POST['health'];
-    $strength = $_POST['strength'];
-    $defense = $_POST['defense'];
+    $enemy = new Enemy($db);
+    $enemy->setId($_GET['id']);
+    $enemy->setName($_POST['name']);
+    $enemy->setDescription($_POST['description']);
+    $enemy->setIsBoss(isset($_POST['isBoss']) ? 1 : 0);
+    $enemy->setHealth($_POST['health']);
+    $enemy->setStrength($_POST['strength']);
+    $enemy->setDefense($_POST['defense']);
 
-    // Actualizamos los datos en la base de datos
-    try {
-        $stmt = $db->prepare("UPDATE enemies SET name = :name, description = :description, isBoss = :isBoss, health = :health, strength = :strength, defense = :defense WHERE id = :id");
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':isBoss', $isBoss);
-        $stmt->bindParam(':health', $health);
-        $stmt->bindParam(':strength', $strength);
-        $stmt->bindParam(':defense', $defense);
-        $stmt->bindParam(':id', $_GET['id']); // Usamos el metodo GET para obtener el ID 
-        $stmt->execute();
-        echo "Enemigo actualizado correctamente.";
-    } catch (PDOException $e) {
-        echo "Error al actualizar: " . $e->getMessage();
+    if ($enemy->update()) {
+        header("Location: create_enemy.php");
+    } else {
+        echo "ERROR: No se ha actualizado el enemigo.";
     }
 }
 ?>

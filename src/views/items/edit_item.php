@@ -1,6 +1,6 @@
 <?php
 require_once("../../config/db.php");
-require_once("../../model/Enemy.php");
+require_once("../../model/Item.php");
 
 // Comprobamos si hemos recibido un 'id' a través de GET
 if (!isset($_GET['id']) || empty($_GET['id'])) {
@@ -25,25 +25,17 @@ try {
 
 // Si se envia por POST tenemos que procesar los datos que nos pasa el formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Recoger los valores del formulario
-    $name = $_POST['name'];
-    $description = $_POST['description'];
-    $type = $_POST['type'];
-    $effect = $_POST['effect'];
+    $item = new Item($db);
+    $item->setId($_GET['id']);
+    $item->setName($_POST['name']);
+    $item->setDescription($_POST['description']);
+    $item->setType($_POST['type']);
+    $item->setEffect($_POST['effect']);
 
-
-    // Actualizamos los datos en la base de datos
-    try {
-        $stmt = $db->prepare("UPDATE items SET name = :name, description = :description, type = :type, effect = :effect WHERE id = :id");
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':type', $type);
-        $stmt->bindParam(':effect', $effect);
-        $stmt->bindParam(':id', $_GET['id']); // Usamos el metodo GET para obtener el ID 
-        $stmt->execute();
-        echo "Item actualizado correctamente.";
-    } catch (PDOException $e) {
-        echo "Error al actualizar: " . $e->getMessage();
+    if ($item->update()) {
+        header("Location: create_item.php");
+    } else {
+        echo "ERROR: No se ha actualizado el item.";
     }
 }
 ?>

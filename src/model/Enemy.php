@@ -123,6 +123,30 @@ class Enemy
         
 		return $stmt->execute();
 	}
+
+	public function update() {
+        try {
+            $stmt = $this->db->prepare("UPDATE enemies 
+                                        SET name = :name, 
+                                            description = :description, 
+                                            isBoss = :isBoss, 
+                                            health = :health, 
+                                            strength = :strength, 
+                                            defense = :defense 
+                                        WHERE id = :id");
+            $stmt->bindParam(':name', $this->name);
+            $stmt->bindParam(':description', $this->description);
+            $stmt->bindParam(':isBoss', $this->isBoss, PDO::PARAM_BOOL);
+            $stmt->bindParam(':health', $this->health);
+            $stmt->bindParam(':strength', $this->strength);
+            $stmt->bindParam(':defense', $this->defense);
+            $stmt->bindParam(':id', $this->id);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error al actualizar el enemigo: " . $e->getMessage();
+            return false;
+        }
+    }
 }
 
 	

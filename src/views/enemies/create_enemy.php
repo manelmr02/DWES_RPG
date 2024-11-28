@@ -74,45 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <button type="submit">Crear enemigo</button>
     </form>
-
-    <h1>Lista de enemigos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>¿Es jefe?</th>
-                <th>PV</th>
-                <th>Fuerza</th>
-                <th>Defensa</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($enemies as $enemy): ?>
-                <tr>
-                    <td>Img</td>
-                    <td><?= $enemy['name'] ?></td>
-                    <td><?= $enemy['description'] ?></td>
-                    <td><?= $enemy['isBoss'] ? "Sí" : "No" ?></td>
-                    <td><?= $enemy['health'] ?></td>
-                    <td><?= $enemy['strength'] ?></td>
-                    <td><?= $enemy['defense'] ?></td>
-                    <td>
-                        <form action="edit_enemy.php" method="GET">
-                        <input type="hidden" name="id" value="<?= $enemy['id'] ?>">
-                        <button type="submit">Editar</button>
-                        </form>
-                        <form action="delete_enemy.php" method="POST">
-                            <input type="hidden" name="id" value="<?= $enemy['id'] ?>">
-                            <button type="submit">Borrar</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <?php require('list_enemies.php'); ?>
+    
 </body>
 
 </html>

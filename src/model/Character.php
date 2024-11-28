@@ -110,6 +110,28 @@ class Character
 
 		return $stmt->execute();
 	}
+
+	public function update() {
+        try {
+            $stmt = $this->db->prepare("UPDATE characters 
+                                        SET name = :name, 
+                                            description = :description, 
+                                            health = :health, 
+                                            strength = :strength, 
+                                            defense = :defense 
+                                        WHERE id = :id");
+            $stmt->bindParam(':name', $this->name);
+            $stmt->bindParam(':description', $this->description);
+            $stmt->bindParam(':health', $this->health);
+            $stmt->bindParam(':strength', $this->strength);
+            $stmt->bindParam(':defense', $this->defense);
+            $stmt->bindParam(':id', $this->id);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error al actualizar el personaje: " . $e->getMessage();
+            return false;
+        }
+    }
 }
 
 	

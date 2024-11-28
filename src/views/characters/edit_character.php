@@ -26,26 +26,20 @@ try {
 
 // Si se envia por POST tenemos que procesar los datos que nos pasa el formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Recoger los valores del formulario
-    $name = $_POST['name'];
-    $description = $_POST['description']; 
-    $health = $_POST['health'];
-    $strength = $_POST['strength'];
-    $defense = $_POST['defense'];
+    $character = new Character($db);
+    $character->setId($_GET['id']); // Establece el ID del personaje
+    $character->setName($_POST['name']);
+    $character->setDescription($_POST['description']);
+    $character->setHealth($_POST['health']);
+    $character->setStrength($_POST['strength']);
+    $character->setDefense($_POST['defense']);
 
-    // Actualizamos los datos en la base de datos
-    try {
-        $stmt = $db->prepare("UPDATE characters SET name = :name, description = :description, health = :health, strength = :strength, defense = :defense WHERE id = :id");
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':health', $health);
-        $stmt->bindParam(':strength', $strength);
-        $stmt->bindParam(':defense', $defense);
-        $stmt->bindParam(':id', $_GET['id']); // Usamos el metodo GET para obtener el ID 
-        $stmt->execute();
-        echo "Personaje actualizado correctamente.";
-    } catch (PDOException $e) {
-        echo "Error al actualizar: " . $e->getMessage();
+    if ($character->update()) {
+        //echo "Personaje actualizado correctamente.";
+        header("Location: create_character.php");
+        //exit;
+    } else {
+        echo "ERROR: No se ha actualizado el personaje.";
     }
 }
 

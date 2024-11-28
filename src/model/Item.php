@@ -102,6 +102,26 @@ class Item
         
 		return $stmt->execute();
 	}
+
+	public function update() {
+        try {
+            $stmt = $this->db->prepare("UPDATE items 
+                                        SET name = :name, 
+                                            description = :description, 
+                                            type = :type, 
+                                            effect = :effect 
+                                        WHERE id = :id");
+            $stmt->bindParam(':name', $this->name);
+            $stmt->bindParam(':description', $this->description);
+            $stmt->bindParam(':type', $this->type);
+            $stmt->bindParam(':effect', $this->effect);
+            $stmt->bindParam(':id', $this->id);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error al actualizar el item: " . $e->getMessage();
+            return false;
+        }
+    }
 }
 
 	
